@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Images</title>
+<style>
+   body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000; /* Optional: for better visibility */
+}
+
+.outer-image {
+    top: -1%;
+}
+
+.middle-image-container {
+    position: absolute;
+    top: 49.7%;
+    left: 48.6%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Center align the text */
+}
+
+.top-image {
+    position: fixed; /* Set position to fixed */
+    top: -110%;
+    left: 35%; /* Initial position */
+    width: 20%;
+    height: 30%; /* Adjust width as needed */
+    z-index: -1; /* Ensure it's above other images */
+    animation: swingPendulum 0.1s infinite alternate; /* Animation for pendulum swing */
+}
+
+.text-on-middle {
+    position: relative; /* Change position to relative */
+    color: rgb(13, 170, 34); /* Adjust text color */
+    font-size: 20px; /* Adjust font size */
+    font-weight: bold; /* Adjust font weight */
+    z-index: 2; /* Ensure it's above other elements */
+}
+
+@keyframes swingPendulum {
+    0% {
+        transform: skewX(0deg);
+    }
+    50% {
+        transform: skewX(-15deg); /* Adjust the degree of skewing as needed */
+    }
+    100% {
+        transform: skewY(-5deg);
+    }
+}
+
+.stop-button {
+    margin-top: 20px;
+    background-color: #f00;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+    <img id="outerCircle" src="./IMAGES/Outer_Ring.png" alt="Outer Circle Image" class="outer-image" id="outercircle">
+    <div class="outer-image-container">
+        <div class="middle-image-container">
+            <img id="middleCircle" src="./IMAGES/Colors_Wheel.png" alt="Middle Circle Image" class="middle-image">
+            
+           <div class="text-on-middle">Spin</div>
+              </div>
+              
+        </div>
+    </div>
+    <div class="middle-image-container">
+        <img id="middleCircle" src="./IMAGES/Middle_Circle.png" alt="Middle Circle Image" class="middle-image">
+        <img src="./IMAGES/Anchor.png" alt="Top Image" class="top-image">
+    </div>
+    <div>
+        <button class="stop-button">Stop</button>
+
+    </div>
+    
+    
+    
+    <script>
+        window.onload = function() {
+            const wheel = document.getElementById('middleCircle');
+            const text = document.querySelector('.text-on-middle');
+            const stopButton = document.querySelector('.stop-button');
+    
+            let angle = 0;
+            let isAnimating = true; // Start animations by default
+            let pendulumAnimation = null;
+    
+            function rotateWheel() {
+                angle = (angle + 5) % 360;
+                wheel.style.transform = `rotate(${angle}deg)`;
+                if (isAnimating) {
+                    requestAnimationFrame(rotateWheel);
+                }
+            }
+    
+            function startAnimations() {
+                rotateWheel();
+                text.classList.add('swingPendulum');
+                pendulumAnimation = setTimeout(stopAnimations, 100000000000); // Adjust time as needed
+            }
+    
+            function stopAnimations() {
+                isAnimating = false;
+                clearTimeout(pendulumAnimation);
+                text.classList.remove('swingPendulum');
+                removeKeyframesRule('swingPendulum'); // Remove keyframes rule
+                console.log("Current angle:", angle);
+            }
+    
+            function removeKeyframesRule(name) {
+                const styleSheet = document.styleSheets[0];
+                for (let i = 0; i < styleSheet.cssRules.length; i++) {
+                    const rule = styleSheet.cssRules[i];
+                    if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === name) {
+                        styleSheet.deleteRule(i);
+                        break;
+                    }
+                }
+            }
+    
+            startAnimations(); // Start animations when the page loads
+    
+            stopButton.addEventListener('click', function() {
+    if (isAnimating) {
+        if (angle >= 200 && angle <= 260) {
+            stopAnimations();
+            window.location.href = "formpage2.html";
+        } else {
+            alert("Please try again!");
+        }
+    }
+});
+        }
+
+
+    </script>
+    
+    
+</body>
+</html>

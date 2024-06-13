@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Blast Animation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #282c34;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.blast-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4757;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+#trigger-blast {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#trigger-blast:hover {
+    background-color: #ff6b81;
+}
+
+    </style>
+</head>
+<body>
+    <div class="blast-container">
+        <!-- Particles will be dynamically inserted here -->
+    </div>
+    <button id="trigger-blast">Trigger Blast</button>
+
+    <script src="script.js"></script>
+    <script>
+        // script.js
+
+document.getElementById('trigger-blast').addEventListener('click', function() {
+    const blastContainer = document.querySelector('.blast-container');
+    const numberOfParticles = 30;
+    const particles = [];
+
+    // Clear any existing particles
+    blastContainer.innerHTML = '';
+
+    // Create particles
+    for (let i = 0; i < numberOfParticles; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        blastContainer.appendChild(particle);
+        particles.push(particle);
+    }
+
+    // Animate particles
+    particles.forEach((particle, index) => {
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = Math.random() * 100;
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        const scale = Math.random() * 0.5 + 0.5;
+
+        particle.style.transition = `transform 0.6s ease-out, opacity 0.6s ease-out`;
+        particle.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        particle.style.opacity = 1;
+
+        setTimeout(() => {
+            particle.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+            particle.style.opacity = 0;
+        }, 600); // Reset after animation ends
+    });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Images</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #000; /* Optional: for better visibility */
+    }
+    .outer-image-container {
+        position: relative;
+        transition: transform 1s ease; /* Smooth transition for rotation */
+    }
+    .middle-image-container {
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .inner-image {
+        position: absolute;
+        top: 48.1%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .top-image {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px; /* Adjust width as needed */
+        z-index: 1; /* Ensure it's above other images */
+    }
+    .text-on-middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 600%;
+        color: white;
+        cursor: pointer; /* Change cursor to pointer on hover */
+    }
+    .outer-image, .middle-image, .inner-image {
+        transition: transform 1s ease; /* Smooth transition for rotation */
+    }
+</style>
+</head>
+<body>
+    <div class="outer-image-container">
+        <img id="outerCircle" src="./IMAGES/Outer_Ring.png" alt="Outer Circle Image" class="outer-image" id="outercircle">
+        <img src="./IMAGES/Anchor.png" alt="Top Image" class="top-image">
+        <div class="middle-image-container">
+            <img id="middleCircle" src="./IMAGES/Middle_Circle.png" alt="Middle Circle Image" class="middle-image">
+            <div class="text-on-middle">Spin</div>
+        </div>
+        <img id="innerCircle" src="./IMAGES/Colors_Wheel.png" alt="Inner Circle Image" class="inner-image" id="innercircle">
+    </div>
+
+    <script>
+        window.onload = function() {
+    const wheel = document.getElementById('innercicrcle');
+    let angle = 0;
+
+    function rotateWheel() {
+        angle = (angle + 1) % 360;
+        wheel.style.transform = `rotate(${angle}deg)`;
+        requestAnimationFrame(rotateWheel);
+    }
+
+    rotateWheel();
+};
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Images</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #000;
+    }
+
+    .outer-image {
+        top: -1%;
+    }
+
+    .middle-image-container {
+        position: absolute;
+        top: 45.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .top-image {
+        position: fixed;
+        top: -110%;
+        left: 35%;
+        width: 20%;
+        height: 30%;
+        z-index: -1;
+        animation: swingPendulum 0.1s infinite alternate;
+    }
+
+    .text-on-middle {
+        position: absolute;
+        color: rgb(13, 170, 34);
+        font-size: 20px;
+        font-weight: bold;
+        z-index: 2;
+        top: 60%; /* Adjust position as needed */
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .wheel-image {
+        position: absolute;
+        width: 30%; /* Adjust the size as needed */
+        height: auto;
+        transform-origin: center;
+        top: 10%; /* Adjust to place the image between 350 and 30 degrees */
+    }
+
+    .nft-image {
+        position: absolute;
+        width: 30%;
+        height:20%;
+        top: 40%;
+        left: 35%;
+        pointer-events: none;
+        transform: rotateZ('50%');
+    }
+
+    @keyframes swingPendulum {
+        0% {
+            transform: skewX(0deg);
+        }
+        50% {
+            transform: skewX(-15deg);
+        }
+        100% {
+            transform: skewY(-5deg);
+        }
+    }
+
+    .stop-button {
+        margin-top: 20px;
+        background-color: rgb(26, 141, 60);
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .message-box {
+        display: none;
+        padding: 10px;
+        background-color: #fff;
+        color: #000;
+        font-size: 200%;
+        border: 2px solid #000;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        width: 20%;
+        height: 4%;
+    }
+
+</style>
+</head>
+<body>
+    <div class="message-box" id="messageBox"></div>
+    <img id="outerCircle" src="./IMAGES/Outer_Ring.png" alt="Outer Circle Image" class="outer-image">
+    <div class="outer-image-container">
+        <div class="middle-image-container">
+            <img id="middleCircle" src="./IMAGES/Colors_Wheel.png" alt="Middle Circle Image" class="middle-image">
+            <img id="nftImage" src="./IMAGES/NFT_01_C2.png" alt="NFT Image" class="nft-image">
+            <div id="rotatingText" class="text-on-middle">NFT</div>
+        </div>
+    </div>
+    <div class="middle-image-container">
+        <img id="middleCircle2" src="./IMAGES/Middle_Circle.png" alt="Middle Circle Image" class="middle-image">
+        <img src="./IMAGES/Anchor.png" alt="Top Image" class="top-image">
+    </div>
+    <div>
+        <button class="stop-button" style="width: 300%; height: 150%;" style="left: 20%;"><b style="font-size: 150%;">Stop</b></button>
+    </div>
+    
+    <form id="myForm" style="display:none;">
+        <input type="hidden" id="angleInput" name="angle" value="">
+        <!-- Add other form fields as needed -->
+    </form>
+
+    <script>
+      window.onload = function() {
+    const wheel = document.getElementById('middleCircle');
+    const middleCircle2 = document.getElementById('middleCircle2');
+    const nftImage = document.getElementById('nftImage');
+    const rotatingText = document.getElementById('rotatingText');
+    const stopButton = document.querySelector('.stop-button');
+    const messageBox = document.getElementById('messageBox');
+    const form = document.getElementById('myForm');
+    const angleInput = document.getElementById('angleInput');
+
+    let angle = 0;
+    let isAnimating = true;
+    let pendulumAnimation = null;
+    const radius = 10 * 37.7952755906;
+
+    function rotateWheel() {
+        angle = (angle + 5) % 360;
+
+        // Convert angle to radians for trigonometric calculations
+        let radians = angle * (Math.PI / 180);
+
+        // Calculate the position offset for the nftImage
+        let xOffset = Math.cos(radians) * radius; // radius in cm
+        let yOffset = Math.sin(radians) * radius;
+
+        // Apply transform to rotate the wheel elements
+        wheel.style.transform = `rotate(${angle}deg)`;
+        middleCircle2.style.transform = `rotate(${angle}deg)`;
+        nftImage.style.transform = `translate(${xOffset}px, ${yOffset}px) rotate(${angle}deg)`;
+
+        if (isAnimating) {
+            requestAnimationFrame(rotateWheel);
+        }
+    }
+
+    function startAnimations() {
+        isAnimating = true;
+        messageBox.style.display = 'none';
+        rotateWheel();
+    }
+
+    function stopAnimations() {
+        isAnimating = false;
+        angleInput.value = angle;
+
+        // Determine eligibility based on the final angle
+        if ((angle >= 350 && angle <= 360) || (angle >= 0 && angle <= 30)) {
+            messageBox.style.display = 'block';
+            messageBox.innerText = 'Eligible for the NFT transaction';
+        } else {
+            messageBox.style.display = 'block';
+            messageBox.innerText = 'Better luck next time';
+        }
+    }
+
+    function submitForm() {
+        const formData = new FormData(form);
+        const json = JSON.stringify(Object.fromEntries(formData));
+        console.log("Form data:", formData);
+        console.log("JSON data:", json);
+
+        // Simulate form submission
+        // Note: In a real scenario, you would use fetch or XMLHttpRequest to send data to the server
+        console.log("Form submitted with JSON data:", json);
+        // Redirect or other actions after form submission
+        window.location.href = "formpage2.html";
+    }
+
+    startAnimations();
+
+    stopButton.addEventListener('click', function() {
+        if (isAnimating) {
+            stopAnimations();
+            nftImage.style.transform = `translateX(-50%) rotate(${angle}deg)`; // Adjust nftImage position if necessary
+            submitForm(); // Submit form or take further actions
+        }
+    });
+}
+
+    </script>
+</body>
+</html>

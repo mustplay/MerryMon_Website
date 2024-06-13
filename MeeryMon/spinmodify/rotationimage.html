@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotate Image with 15cm Radius</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 10cm;
+            height: 20cm;
+            border: 1px solid #ccc;
+        }
+        .center-point {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .rotating-image {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="center-point"></div>
+        <img src="./IMAGES/NFT_01_C2.png" alt="Rotating" class="rotating-image" id="rotatingImage">
+    </div>
+    <script>
+        const rotatingImage = document.getElementById('rotatingImage');
+        const radius = 10 * 37.7952755906; // Convert 15cm to pixels (1 cm = 37.7952755906 pixels)
+        let angle = 0;
+
+        function rotateImage() {
+            angle += 1;
+            const radian = angle * (Math.PI / 180);
+            const x = radius * Math.cos(radian);
+            const y = radius * Math.sin(radian);
+            rotatingImage.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
+            requestAnimationFrame(rotateImage);
+        }
+
+        rotateImage();
+    </script>
+</body>
+</html>

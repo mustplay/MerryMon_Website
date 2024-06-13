@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 1s ease;
+    }
+
+    .signup-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .signup-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+    }
+
+    .signup-container label {
+        display: block;
+        text-align: left;
+        margin: 10px 0 5px;
+        font-size: 14px;
+        animation: fadeIn 1s ease;
+    }
+
+    .signup-container label[for="name"] {
+        color: #F08080; /* Light Coral */
+        animation-delay: 2s; /* Delay animation by 2 seconds */
+    }
+
+    .signup-container label[for="dob"] {
+        color: #a8c71c; /* Aquamarine */
+        animation-delay: 2s; /* Delay animation by 2 seconds */
+    }
+
+    .signup-container label[for="address"] {
+        color: #3711be; /* Light Blue */
+        animation-delay: 2s; /* Delay animation by 2 seconds */
+    }
+
+    .signup-container input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+    }
+
+    .signup-container input:focus {
+        border-color: #6e8efb;
+        outline: none;
+    }
+
+    .signup-container button {
+        width: 100%;
+        padding: 12px;
+        background-color: #6e8efb;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .signup-container button:hover {
+        background-color: #5a75d4;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2 id="animatedText">MEET MERRYMON</h2>
+        <form id="signupForm">
+            <label for="name" style="font-size: 200%;">Name</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="dob" style="font-size: 150%;">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            
+            <label for="address" style="font-size: 200%;">Address:</label>
+            <input type="text" id="address" name="address" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <p id="errorMessage" class="error-message"></p>
+    </div>
+    <script src="scripts.js"></script>
+    <script>
+         const animatedText = document.getElementById('animatedText');
+    const textArray = ["MEET MERRYMON", "PLEASE FILL THE DETAILS ", "ANDNOW", "JOIN MERRYMON"];
+    let index = 0;
+
+    function changeText() {
+        animatedText.textContent = textArray[index];
+        index = (index + 1) % textArray.length;
+    }
+
+    setInterval(changeText, 3000);
+    changeText();
+
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Simple validation
+    if (password !== confirmPassword) {
+        errorMessage.textContent = 'Passwords do not match!';
+        return;
+    }
+
+    if (password.length < 6) {
+        errorMessage.textContent = 'Password must be at least 6 characters long!';
+        return;
+    }
+
+    errorMessage.textContent = '';
+    
+    // Here you can add code to send the form data to the server
+    console.log('Form submitted successfully!');
+    console.log('Username:', username);
+    console.log('Email:', email);
+});
+
+// Change background color every 5 seconds
+const colors = ['#6e8efb', '#a777e3', '#f78ca0', '#fad0c4', '#ffecd2'];
+let colorIndex = 0;
+
+function changeBackgroundColor() {
+    document.body.style.background = colors[colorIndex];
+    colorIndex = (colorIndex + 1) % colors.length;
+}
+
+setInterval(changeBackgroundColor, 5000);
+changeBackgroundColor(); // Initial call to set the first color
+
+        
+    </script>
+</body>
+</html>
