@@ -3,128 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
     <style>
-       * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #6e8efb, #a777e3);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 1s ease;
-    }
-    .fontchanging{
-        font-family: "Oleo Script", system-ui;
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    .signup-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        width: 300%;
-        max-width: 400px;
-        text-align: center;
-        border: 3px solid black;
-        box-shadow: yellow;
-    }
-
-    .signup-container h2 {
-        margin-bottom: 20px;
-        color: #333;
-        font-size: 24px;
-        overflow: hidden; /* Hide overflow to prevent text overflow */
-    }
-
-
-    .signup-container input {
-        width: 200%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border: 2.2px solid black;
-        border-radius: 5px;
-        font-size: 16px;
-        background-color: #f9f9f9;
-    }
-
-    .signup-container input:focus {
-        border-color: #6e8efb;
-        outline: none;
-    }
-
-    .signup-container button {
-        width: 100%;
-        padding: 12px;
-        background-color: #6e8efb;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-        border: 2px solid blue;
-    }
-
-    .signup-container button:hover {
-        background-color: #5a75d4;
-    }
-
-  
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #111010;
+            position: relative;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container img {
+            max-width: 50%;
+            height: auto;
+        }
+        .centered {
+            position: relative;
+        }
+        .overlay-left {
+            position: absolute;
+            left: 25%;
+            top: 90%;
+            width: 10%;
+            transform: translateY(-50%);
+        }
+        .overlay-right {
+            position: absolute;
+            right: 25%;
+            top: 90%;
+            width: 10%;
+            transform: translateY(-50%);
+        }
+        .input-overlay {
+            position: absolute;
+            top: 125%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            height: 100%;
+        }
+        .input-overlay input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 15px; /* Rounded edges */
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
-    <div class="signup-container" style="width: 300%;">
-       <h2>ENTER YOUR SOLANA WALLET NUMBER</h2>
-       <input type="number" style="width: 107%;" value="ENTER YOUR SOLANA WALLET NUMBER" required>
-       <button style="width: 60%;" onclick="submit_btn()">SUBMIT</button>
+    <div class="container">
+        <img src="../IMAGES/NFT_Solana wallet_1.png" class="centered">
+        <img src="../IMAGES/Cancel.png" class="overlay-left">
+        <img src="../IMAGES/Submit.png" class="overlay-right">
+        <div class="input-overlay">
+            <input type="text" placeholder="Enter Your Wallet Number">
+        </div>
     </div>
-    <script src="scripts.js"></script>
-    <script>
-        function submit_btn() {
-            alert("Your NFT will be delivered soon");
-            window.location.href = "spnmodify.html"; // Change to your desired URL
-        }
-
-        const colors = ['#6e8efb', '#a777e3', '#f78ca0', '#fad0c4', '#ffecd2'];
-        let colorIndex = 0;
-
-        function changeBackgroundColor() {
-            document.body.style.background = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
-        }
-
-        setInterval(changeBackgroundColor, 5000);
-        changeBackgroundColor();
-
-        const signupForm = document.getElementById('signupForm');
-        signupForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            
-            // Retrieve form data
-            const formData = new FormData(signupForm);
-            const jsonData = {};
-
-            // Convert form data to JSON
-            formData.forEach((value, key) => {
-                jsonData[key] = value;
-            });
-
-            // Log JSON data for demonstration (you can send it to the server instead)
-            document.write(JSON.stringify(jsonData));
-        });
-    </script>
 </body>
 </html>

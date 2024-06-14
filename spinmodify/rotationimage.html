@@ -1,63 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotate Image with 15cm Radius</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .container {
-            position: relative;
-            width: 10cm;
-            height: 20cm;
-            border: 1px solid #ccc;
-        }
-        .center-point {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: red;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .rotating-image {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            left: 50%;
-            transform-origin: 50% 50%;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Image on Click</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+    #imageContainer {
+  display: none;
+  text-align: center; /* Center the image horizontally */
+  margin-top: 20px; /* Add some space between button and image */
+}
+
+#imageContainer img {
+  max-width: 100%; /* Ensure the image doesn't exceed container width */
+  height: auto;
+}
+
+    
+
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="center-point"></div>
-        <img src="./IMAGES/NFT_01_C2.png" alt="Rotating" class="rotating-image" id="rotatingImage">
-    </div>
-    <script>
-        const rotatingImage = document.getElementById('rotatingImage');
-        const radius = 10 * 37.7952755906; // Convert 15cm to pixels (1 cm = 37.7952755906 pixels)
-        let angle = 0;
 
-        function rotateImage() {
-            angle += 1;
-            const radian = angle * (Math.PI / 180);
-            const x = radius * Math.cos(radian);
-            const y = radius * Math.sin(radian);
-            rotatingImage.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
-            requestAnimationFrame(rotateImage);
-        }
+<button id="showImageBtn">Show Image</button>
+<div id="imageContainer">
+  <img id="myImage" src="../IMAGES/Congrats_PopUp.png" alt="Image">
+</div>
 
-        rotateImage();
-    </script>
+<script>
+document.getElementById('showImageBtn').addEventListener('click', function() {
+  var imageContainer = document.getElementById('imageContainer');
+  imageContainer.style.display = (imageContainer.style.display === 'none' || imageContainer.style.display === '') ? 'block' : 'none';
+});
+</script>
+
 </body>
 </html>
