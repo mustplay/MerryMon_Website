@@ -21,6 +21,7 @@
     }
 
     .middle-image-container {
+        margin-top: 20px;
         position: absolute;
         top: 42%;
         left: 50%;
@@ -151,10 +152,12 @@ window.onload = function() {
             targetimage.classList.add('blur');
         } else {
             alert("Better luck next time");
+            startAnimations();
+           
         }
+       
         messageBox.style.display = 'block';
     }
-   
     startAnimations();
 
     stopButton.addEventListener('click', function() {
@@ -165,7 +168,7 @@ window.onload = function() {
     });
 }
 function navigateToAnotherPage() {
-    window.location.href = './formpage2.html'; // Replace 'another-page.html' with your actual page URL
+    window.location.href= "spinmodify/formpage2.html" // Replace 'another-page.html' with your actual page URL
 }
 
     </script>
