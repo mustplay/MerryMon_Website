@@ -22,7 +22,7 @@
 
     .middle-image-container {
         position: absolute;
-        top: 45.5%;
+        top: 47%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
@@ -58,14 +58,14 @@
     }
 
     .nft-image {
-        position: absolute;
-        width: 30%;
-        height:20%;
-        top: 40%;
-        left: 35%;
-        pointer-events: none;
-        transform: rotateZ('50%');
-    }
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top: 40%;
+    left: 35%;
+    pointer-events: none;
+    transform: rotateX(180deg); /* Rotate the image vertically */
+}
 
     @keyframes swingPendulum {
         0% {
@@ -111,8 +111,7 @@
     <img id="outerCircle" src="./IMAGES/Outer_Ring.png" alt="Outer Circle Image" class="outer-image">
     <div class="outer-image-container">
         <div class="middle-image-container">
-            <img id="middleCircle" src="./IMAGES/Colors_Wheel.png" alt="Middle Circle Image" class="middle-image">
-            <img id="nftImage" src="./IMAGES/NFT_01_C2.png" alt="NFT Image" class="nft-image">
+            <img id="middleCircle" src="./IMAGES/Colors_Wheel_Mon.png" alt="Middle Circle Image" class="middle-image">
             <div id="rotatingText" class="text-on-middle">NFT</div>
         </div>
     </div>
@@ -158,8 +157,8 @@
         // Apply transform to rotate the wheel elements
         wheel.style.transform = `rotate(${angle}deg)`;
         middleCircle2.style.transform = `rotate(${angle}deg)`;
-        nftImage.style.transform = `translate(${xOffset}px, ${yOffset}px) rotate(${angle}deg)`;
 
+        
         if (isAnimating) {
             requestAnimationFrame(rotateWheel);
         }
@@ -176,7 +175,7 @@
         angleInput.value = angle;
 
         // Determine eligibility based on the final angle
-        if ((angle >= 350 && angle <= 360) || (angle >= 0 && angle <= 30)) {
+        if ((angle >= 350 && angle <= 360) || (angle >= 0 && angle <= 10)) {
             messageBox.style.display = 'block';
             messageBox.innerText = 'Eligible for the NFT transaction';
         } else {
