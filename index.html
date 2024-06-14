@@ -121,9 +121,10 @@ window.onload = function() {
     const messageBox = document.getElementById('messageBox');
     let angle = 0;
     let isAnimating = true;
+    let rotationSpeed = 5; // Initial rotation speed
 
     function rotateWheel() {
-        angle = (angle + 5) % 360;
+        angle = (angle + rotationSpeed) % 360;
         // Apply transform to rotate the wheel elements
         wheel.style.transform = `rotate(${angle}deg)`;
         middleCircle2.style.transform = `rotate(${angle}deg)`;
@@ -151,10 +152,31 @@ window.onload = function() {
             targetimage.classList.add('blur');
         } else {
             alert("Better luck next time");
+<<<<<<< Updated upstream
+=======
+            angle = 0; // Reset angle to 0
+            // Reset rotation speed and restart animations
+            rotationSpeed = 5;
+            startAnimations(); // Restart animations with angle reset
+            return; // Exit function to prevent further execution
+>>>>>>> Stashed changes
         }
         messageBox.style.display = 'block';
     }
+<<<<<<< Updated upstream
    
+=======
+
+    function resetWheel() {
+        angle = 0;
+        rotationSpeed = 1;
+        isAnimating = true;
+        nftImage.style.display = 'none';
+        continuesbtn.style.display = 'none';
+        targetimage.classList.remove('blur');
+    }
+
+>>>>>>> Stashed changes
     startAnimations();
 
     stopButton.addEventListener('click', function() {
@@ -163,10 +185,20 @@ window.onload = function() {
             // submitForm(); // Submit form or take further actions if needed
         }
     });
+
+    continuesbtn.addEventListener('click', function() {
+        resetWheel();
+    });
 }
+
 function navigateToAnotherPage() {
+<<<<<<< Updated upstream
     window.location.href = './formpage2.html'; // Replace 'another-page.html' with your actual page URL
+=======
+    window.location.href = "spinmodify/formpage2.html"; // Replace 'formpage2.html' with your actual page URL
+>>>>>>> Stashed changes
 }
+
 
     </script>
 </body>
