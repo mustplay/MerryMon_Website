@@ -37,7 +37,7 @@
             width: 88%;
             top: 4.8%;
             left: 6%;
-            animation: rotateInnerCircle 5s linear infinite; /* Adjusted animation speed to 1 second */
+            animation: rotateInnerCircle 1s linear infinite; /* Adjusted animation speed to 1 second */
         }
 
         .middle-circle {
@@ -176,12 +176,13 @@
             const transformValue = computedStyle.getPropertyValue('transform');
             const transformMatrix = transformValue.split('(')[1].split(')')[0].split(',');
             const angle = Math.round(Math.atan2(transformMatrix[1], transformMatrix[0]) * (180 / Math.PI));
-
-            if ((angle >= 350 && angle <= 360) || (angle >= 0 && angle <= 20)) {
+            console.log(" angle is " + angle)
+            if ((angle >= 342 || angle <= 18)) {
                 innerCircle.style.animation = 'none';
                 innerCircle.classList.add('blurred');
                 isAnimationStopped = true;
                 document.querySelector('.congratulations-container').style.display = 'flex';
+                
             } else {
                 alert('Please try again! The wheel is not in the correct position to stop.');
             }
