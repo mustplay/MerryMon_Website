@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #111010;
-            position: relative;
-        }
-        .container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container img {
-            max-width: 50%;
-            height: auto;
-        }
-        .centered {
-            position: relative;
-        }
-        .overlay-left {
-            position: absolute;
-            left: 25%;
-            top: 90%;
-            width: 10%;
-            transform: translateY(-50%);
-        }
-        .overlay-right {
-            position: absolute;
-            right: 25%;
-            top: 90%;
-            width: 10%;
-            transform: translateY(-50%);
-        }
-        .input-overlay {
-            position: absolute;
-            top: 125%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30%;
-            height: 100%;
-        }
-        .input-overlay input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border-radius: 15px; /* Rounded edges */
-            border: 1px solid #ccc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Website with Bootstrap</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: greenyellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .custom-container {
+      max-width: 800px; /* Increased container width */
+      background-color: yellowgreen;
+      padding: 30px;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center; /* Center align elements inside */
+    }
+    .wallet-image {
+      max-width: 100%;
+      height: auto;
+      position: relative; /* Ensure relative positioning for absolute child */
+    }
+    .wallet-number {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; /* Adjust width as needed */
+      padding: 10px;
+      border: 2px solid #000000; /* Black border */
+      border-radius: 20px; /* Rounded corners */
+      background-color: white;
+      text-align: center;
+      box-sizing: border-box; /* Include padding and border in width */
+      font-size: 16px;
+    }
+    .button-container {
+      margin-top: 20px; /* Add some space above the buttons */
+    }
+    .submit-image,
+    .cancel-image {
+      max-width: 150px; /* Adjust size as needed */
+      height: auto;
+      margin: 0 10px; /* Add some space between the buttons */
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="../IMAGES/NFT_Solana wallet_1.png" class="centered">
-        <img src="../IMAGES/Cancel.png" class="overlay-left">
-        <img src="../IMAGES/Submit.png" class="overlay-right">
-        <div class="input-overlay">
-            <input type="text" placeholder="Enter Your Wallet Number">
-        </div>
+  <div class="custom-container">
+    <div style="position: relative;">
+      <img src="../IMAGES/NFT_Solana wallet_1.png" alt="Wallet Image" class="wallet-image">
+      <input type="text" class="wallet-number" placeholder="PLEASE ENTER YOUR WALLET NUMBER">
     </div>
+    <div class="button-container">
+      <img src="../IMAGES/Cancel.png" alt="Cancel Image" class="cancel-image"> <!-- Cancel image -->
+      <img src="../IMAGES/Submit.png" alt="Submit Image" class="submit-image"> <!-- Submit image -->
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
