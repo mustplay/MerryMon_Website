@@ -16,58 +16,134 @@
       margin: 0;
     }
     .custom-container {
-      max-width: 800px; /* Increased container width */
+      max-width: 800px;
       background-color: yellowgreen;
       padding: 30px;
-      border-radius: 20px; /* Rounded corners */
+      border-radius: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center; /* Center align elements inside */
+      text-align: center;
+      position: relative;
     }
     .wallet-image {
       max-width: 100%;
       height: auto;
-      position: relative; /* Ensure relative positioning for absolute child */
+      position: relative;
     }
     .wallet-number {
       position: absolute;
       top: 80%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 80%; /* Adjust width as needed */
+      width: 80%;
       padding: 10px;
-      border: 2px solid #000000; /* Black border */
-      border-radius: 20px; /* Rounded corners */
+      border: 2px solid #000000;
+      border-radius: 20px;
       background-color: white;
       text-align: center;
-      box-sizing: border-box; /* Include padding and border in width */
+      box-sizing: border-box;
       font-size: 16px;
     }
     .button-container {
-      margin-top: 20px; /* Add some space above the buttons */
+      margin-top: 20px;
     }
     .submit-image {
-      max-width: 150px; /* Adjust size as needed */
+      max-width: 150px;
       height: auto;
-      margin: 0 10px; /* Add some space between the buttons */
+      margin: 0 10px;
       align-items: center;
       align-content: center;
+      cursor: pointer;
+    }
+    .counter {
+      position: absolute;
+      top: 90%;
+      right: 10px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
-  <div class="custom-container">
-    <div style="position: relative;">
-      <img src="../IMAGES/NFT_Solana wallet_1.png" alt="Wallet Image" class="wallet-image">
-      <input type="text" class="wallet-number" placeholder="PLEASE ENTER YOUR WALLET NUMBER">
-    </div>
-    <div class="button-container">
-      <img src="../IMAGES/Submit.png" alt="Submit Image" class="submit-image"> <!-- Submit image -->
-    </div>
+  <div class="custom-container" id="custom-container">
+    <div class="counter" id="counter">0/250</div>
+    <form id="wallet-form">
+      <div style="position: relative;">
+        <img src="../IMAGES/NFT_Solana wallet_1.png" alt="Wallet Image" class="wallet-image" id="wallet-image">
+        <input type="text" class="wallet-number" id="wallet-number" placeholder="PLEASE ENTER YOUR WALLET NUMBER">
+      </div>
+      <div class="button-container">
+        <img src="../IMAGES/Submit.png" alt="Submit Image" class="submit-image" id="submit-button">
+      </div>
+    </form>
   </div>
 
   <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    let count = parseInt(localStorage.getItem('count')) || 0;
+    const maxCount = 250;
+
+    updateCounterDisplay();
+
+    document.getElementById('submit-button').addEventListener('click', function(event) {
+      event.preventDefault();
+
+      var walletNumber = document.getElementById('wallet-number').value;
+
+      if (walletNumber.trim() === '') {
+        alert('Please enter your wallet number.');
+        return;
+      }
+
+      count++;
+      updateLocalStorageCount();
+      updateCounterDisplay();
+
+      if (count >= maxCount) {
+        window.location.href = '../index.html';
+      }
+
+      var data = {
+        walletNumber: walletNumber,
+        count: count
+      };
+
+      var jsonData = JSON.stringify(data);
+      console.log(jsonData)
+      document.write(jsonData)
+      downloadJSON(jsonData, 'wallet_data.json');
+    });
+
+    function updateLocalStorageCount() {
+      localStorage.setItem('count', count);
+    }
+
+    function updateCounterDisplay() {
+      document.getElementById('counter').innerText = `${count}/${maxCount}`;
+    }
+
+    function downloadJSON(jsonData, filename) {
+      var blob = new Blob([jsonData], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Reset count after download
+      count = 0;
+      updateLocalStorageCount();
+      updateCounterDisplay();
+    }
+  </script>
 </body>
 </html>
