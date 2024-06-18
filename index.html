@@ -132,6 +132,16 @@
                 transform: rotate(360deg);
             }
         }
+
+        .continue-button img {
+            width: 100%; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .try-again-button img {
+            width: 100%; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
     </style>
 </head>
 <body>
@@ -178,36 +188,39 @@
         let isAnimationStopped = false;
 
         function stopRotation() {
-    const innerCircle = document.querySelector('.inner-circle');
-    const computedStyle = window.getComputedStyle(innerCircle);
-    const transformValue = computedStyle.getPropertyValue('transform');
-    const transformMatrix = transformValue.split('(')[1].split(')')[0].split(',');
+            const innerCircle = document.querySelector('.inner-circle');
+            const computedStyle = window.getComputedStyle(innerCircle);
+            const transformValue = computedStyle.getPropertyValue('transform');
+            const transformMatrix = transformValue.split('(')[1].split(')')[0].split(',');
 
-    // Calculate the angle from the transform matrix
-    let angle = Math.round(Math.atan2(transformMatrix[1], transformMatrix[0]) * (180 / Math.PI));
+            // Calculate the angle from the transform matrix
+            let angle = Math.round(Math.atan2(transformMatrix[1], transformMatrix[0]) * (180 / Math.PI));
 
-    // Normalize the angle to be between 0 and 360 degrees
-    if (angle < 0) {
-        angle += 360;
-    }
+            // Normalize the angle to be between 0 and 360 degrees
+            if (angle < 0) {
+                angle += 360;
+            }
 
-    console.log(angle);
+            console.log(angle);
 
-    if (angle >= 342 || angle <= 18) {
-        innerCircle.style.animation = 'none';
-        innerCircle.classList.add('blurred');
-        isAnimationStopped = true;
-        document.querySelector('.congratulations-container').style.display = 'flex';
-    } else {
-        innerCircle.style.animation = 'none';
-        innerCircle.classList.add('blurred');
-        document.querySelector('.try-again-container').style.display = 'flex';
-    }
+            // Remove stop button image
+            const stopButton = document.querySelector('.stop-button');
+            stopButton.parentNode.removeChild(stopButton);
 
-    // Stop the animation
-    isAnimating = false;
-}
+            if (angle >= 342 || angle <= 18) {
+                innerCircle.style.animation = 'none';
+                innerCircle.classList.add('blurred');
+                isAnimationStopped = true;
+                document.querySelector('.congratulations-container').style.display = 'flex';
+            } else {
+                innerCircle.style.animation = 'none';
+                innerCircle.classList.add('blurred');
+                document.querySelector('.try-again-container').style.display = 'flex';
+            }
 
+            // Stop the animation
+            isAnimating = false;
+        }
 
         function continueToNextPage() {
             window.location.href = "spinmodify/formpage2.html";
