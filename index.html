@@ -7,15 +7,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: rgb(19, 20, 19);
+            background-color: black;
         }
 
         .circle-container {
             position: relative;
-            width: 400px; /* Increased width */
-            height: 500px; /* Increased height to accommodate the button */
+            width: 400px;
+            height: 500px;
             margin: 0 auto;
-            border-radius: 50%; /* Ensure it's a perfect circle */
+            border-radius: 50%;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -37,7 +37,7 @@
             width: 88%;
             top: 4.8%;
             left: 6%;
-            animation: rotateInnerCircle 1s linear infinite; /* Adjusted animation speed to 1 second */
+            animation: rotateInnerCircle 1s linear infinite;
         }
 
         .middle-circle {
@@ -61,43 +61,41 @@
         }
 
         .stop-button {
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px; /* Adjust bottom distance as needed */
-    height: 50px; /* Height of the button */
-    top: 75%; /* Position from the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center alignment */
-    min-width: 10%;
-    max-width: 150px;
-    justify-content: center;
-}
+            cursor: pointer;
+            position: absolute;
+            bottom: 10px;
+            height: 50px;
+            top: 75%;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 10%;
+            max-width: 150px;
+            justify-content: center;
+        }
 
-/* Media query for mobile devices */
-@media (max-width: 767px) {
-    .stop-button {
-        width: 80%; /* Increase width for better touch interaction */
-        top: 75%; /* Adjust top position */
-    }
-}
+        @media (max-width: 767px) {
+            .stop-button {
+                width: 80%;
+                top: 75%;
+            }
+        }
 
-/* Media query for tablets and laptops */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .stop-button {
-        width: 60%; /* Adjust width for tablets */
-        top: 75%; /* Adjust top position */
-    }
-}
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .stop-button {
+                width: 60%;
+                top: 75%;
+            }
+        }
 
-/* Media query for laptops and desktops */
-@media (min-width: 1025px) {
-    .stop-button {
-        width: 30%; /* Adjust width for larger screens */
-        top: 75%; /* Adjust top position */
-    }
-}
+        @media (min-width: 1025px) {
+            .stop-button {
+                width: 30%;
+                top: 75%;
+            }
+        }
 
-        .congratulations-container {
+        .congratulations-container,
+        .try-again-container {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -107,13 +105,15 @@
             align-items: center;
         }
 
-        .congratulations-container img {
+        .congratulations-container img,
+        .try-again-container img {
             width: 80%;
             max-width: 400px;
         }
 
-        .continue-button {
-            width: 30%; /* Decreased width */
+        .continue-button,
+        .try-again-button {
+            width: 30%;
             margin-top: 20px;
             cursor: pointer;
             display: flex;
@@ -153,13 +153,20 @@
     </div>
 
     <div class="stop-button" onclick="stopRotation()">
-        <img src="./IMAGES/Stop.png" class="img-fluid" alt="Stop Button Image"> <!-- Made responsive using img-fluid class -->
+        <img src="./IMAGES/Stop.png" class="img-fluid" alt="Stop Button Image">
     </div>
 
     <div class="congratulations-container">
-        <img src="./IMAGES/Congrats_PopUp.png" class="img-fluid" alt="Congratulations Image"> <!-- Made responsive using img-fluid class -->
+        <img src="./IMAGES/Congrats_PopUp.png" class="img-fluid" alt="Congratulations Image">
         <div class="continue-button" onclick="continueToNextPage()">
-            <img src="./IMAGES/CONTINUE.png" class="img-fluid" alt="Continue Button Image"> <!-- Made responsive using img-fluid class -->
+            <img src="./IMAGES/Continue_1.png" class="img-fluid" alt="Continue Button Image">
+        </div>
+    </div>
+
+    <div class="try-again-container">
+        <img src="./IMAGES/BLNT_NFT.png" class="img-fluid" alt="Try Again Image">
+        <div class="try-again-button" onclick="tryAgain()">
+            <img src="./IMAGES/Try Again.png" class="img-fluid" alt="Try Again Button Image">
         </div>
     </div>
 
@@ -171,30 +178,44 @@
         let isAnimationStopped = false;
 
         function stopRotation() {
-            const innerCircle = document.querySelector('.inner-circle');
-            const computedStyle = window.getComputedStyle(innerCircle);
-            const transformValue = computedStyle.getPropertyValue('transform');
-            const transformMatrix = transformValue.split('(')[1].split(')')[0].split(',');
-            const angle = Math.round(Math.atan2(transformMatrix[1], transformMatrix[0]) * (180 / Math.PI));
-            console.log(" angle is " + angle)
-            if ((angle >= 342 || angle <= 18)) {
-                innerCircle.style.animation = 'none';
-                innerCircle.classList.add('blurred');
-                isAnimationStopped = true;
-                document.querySelector('.congratulations-container').style.display = 'flex';
-                
-            } else {
-                alert('Please try again! The wheel is not in the correct position to stop.');
-            }
-        }
+    const innerCircle = document.querySelector('.inner-circle');
+    const computedStyle = window.getComputedStyle(innerCircle);
+    const transformValue = computedStyle.getPropertyValue('transform');
+    const transformMatrix = transformValue.split('(')[1].split(')')[0].split(',');
+
+    // Calculate the angle from the transform matrix
+    let angle = Math.round(Math.atan2(transformMatrix[1], transformMatrix[0]) * (180 / Math.PI));
+
+    // Normalize the angle to be between 0 and 360 degrees
+    if (angle < 0) {
+        angle += 360;
+    }
+
+    console.log(angle);
+
+    if (angle >= 342 || angle <= 18) {
+        innerCircle.style.animation = 'none';
+        innerCircle.classList.add('blurred');
+        isAnimationStopped = true;
+        document.querySelector('.congratulations-container').style.display = 'flex';
+    } else {
+        innerCircle.style.animation = 'none';
+        innerCircle.classList.add('blurred');
+        document.querySelector('.try-again-container').style.display = 'flex';
+    }
+
+    // Stop the animation
+    isAnimating = false;
+}
+
 
         function continueToNextPage() {
             window.location.href = "spinmodify/formpage2.html";
         }
 
-        // Example usage: adjust rotation speed to 1 second
-        // Note: the adjustRotationSpeed function is not defined in the provided code.
-        // adjustRotationSpeed(1);
+        function tryAgain() {
+            location.reload();
+        }
     </script>
 </body>
 </html>
